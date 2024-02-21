@@ -34,4 +34,3 @@ These steps must be done providing that LiDARs are Ethernet connected.
 ## Cameras
 
 TODO(Jerry)
-

@@ -167,9 +167,9 @@ network and the latter is a topic to be published to write CAN bus
 frame to CAN bus network. Note that you have to plugin your Kvaser
 adapter before running the socketcan ROS package, and wake up your
 Kvaser adapter by running the command:</p>
-<pre><code class="language-bash">sudo modprobe can  
-sudo modprobe can_raw  
-sudo ip link set can0 type can bitrate 5000000  
+<pre><code class="language-bash">sudo modprobe can
+sudo modprobe can_raw
+sudo ip link set can0 type can bitrate 5000000
 sudo ip link set up can0
 </code></pre>
 <p>The bitrate can be changed if needed.</p>

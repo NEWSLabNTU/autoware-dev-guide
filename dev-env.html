@@ -158,59 +158,17 @@ version. Be careful to set up your box.</p>
 <p>In the case that the box does not support required OS or NVIDIA driver
 is not available. One workaround is to start an Ubuntu 22.04 container
 and put Autoware into it.</p>
-<h2 id="the-autoware-complex"><a class="header" href="#the-autoware-complex">The Autoware Complex</a></h2>
-<p>Autoware itself is a large ROS project. The packaging and execution
-follow ROS convention. Autoware provides various kinds of components
-to complete an autonomous vehicle system, including perception,
-planning and more parts. It's recommended to explore the node
-<a href="https://autowarefoundation.github.io/autoware-documentation/main/design/autoware-architecture/node-diagram/overall-node-diagram-autoware-universe.drawio.svg">diagram</a>
-to explore the packages and their relations.</p>
-<ul>
-<li>Message type definitions
-<ul>
-<li><a href="https://github.com/tier4/autoware_auto_msgs">autoware_auto_msgs</a></li>
-<li><a href="https://github.com/tier4/tier4_autoware_msgs">tier4_autoware_msgs</a></li>
-</ul>
-</li>
-<li>Launch script packages to start a component and the whole system.
-<ul>
-<li><a href="https://github.com/autowarefoundation/autoware_launch">autoware_launch</a>
-to launch the whole system.</li>
-<li><a href="https://github.com/autowarefoundation/sample_sensor_kit_launch">sample_sensor_kit_launch</a>
-to launch sensor driving nodes.</li>
-<li><a href="https://github.com/autowarefoundation/sample_vehicle_launch">sample_vehicle_launch</a>
-to launch motor controlling nodes</li>
-</ul>
-</li>
-<li>Packages for vehicle sensing, control, etc
-<ul>
-<li>See the section below the learn the Autoware project layout.</li>
-</ul>
-</li>
-</ul>
-<h2 id="understanding-autoware-launch-system"><a class="header" href="#understanding-autoware-launch-system">Understanding Autoware Launch System</a></h2>
-<p>The way to run Autoware depends on the execution scenarios, which are
-written as respective launch files. The files can be found in the
-<a href="https://github.com/autowarefoundation/autoware_launch/tree/main/autoware_launch/launch">autoware_launch</a>
-package.  The launch file <code>autoware.launch.xml</code> is entry file to
-launch the whole system. To launch this file, these arguments
-<code>map_path</code>, <code>vehicle_model</code>, and <code>sensor_model</code> must be assigned.</p>
-<pre><code class="language-bash">ros2 launch autoware_launch autoware.launch.xml \
-    map_path:=$HOME/autoware_map/sample-map-planning \
-    vehicle_model:=sample_vehicle \
-    sensor_model:=sample_sensor_kit 
-</code></pre>
-<p>TODO(aesop): Configuration, Tricks</p>
 <h2 id="autoware-source-code-layout"><a class="header" href="#autoware-source-code-layout">Autoware Source Code Layout</a></h2>
 <p>Autoware source code consists of many GitHub repositories. The
 top-level repository is
 <a href="https://github.com/autowarefoundation/autoware">autowarefoundation/autoware</a>,
 which does not include any source code. It has a <code>autoware.repos</code> file
-listing dependent repos. Users have to run <code>vcs import &lt; autoware.repos</code> to download these repositories.</p>
+listing dependent repos. Run this command to download these repositories</p>
+<pre><code class="language-bash">vcs import &lt; autoware.repos
+</code></pre>
 <p>Note that <code>vcs</code> does not provide fine-grained version control. Hence,
 downloaded repos do not pin to specific Git commits, but tracks to
-update-to-date master branch. It makes troubles sometimes because repos
-change frequently.</p>
+update-to-date master or main branch.</p>
 <p>Read <code>autoware.repos</code> and you can see the packages classified as
 follows.</p>
 <ul>
@@ -254,6 +212,96 @@ formats are defined in this component.</li>
 vehicle.</li>
 </ul>
 </li>
+</ul>
+<h2 id="the-autoware-as-a-ros-project"><a class="header" href="#the-autoware-as-a-ros-project">The Autoware as a ROS Project</a></h2>
+<p>The packaging and execution guideline for Autoware follow ROS
+convention. The packages can be categorized as follows.</p>
+<ol>
+<li>Message definition</li>
+<li>Launcher packages</li>
+<li>Parameters</li>
+<li>Nodes and execution units</li>
+</ol>
+<p>The message definition files, launchers and parameters are packed in
+handful of packages. The node/execution packages comprises the major
+parts of Autoware. They are grouped into perception, planning and many
+other components. Explore the node
+<a href="https://autowarefoundation.github.io/autoware-documentation/main/design/autoware-architecture/node-diagram/overall-node-diagram-autoware-universe.drawio.svg">diagram</a>
+to discover the nodes and topic connections among them.</p>
+<h3 id="the-launch-system"><a class="header" href="#the-launch-system">The Launch System</a></h3>
+<p>The
+<a href="https://github.com/autowarefoundation/autoware_launch/tree/main/autoware_launch/launch">autoware_launch</a>
+package contains the launch file <code>autoware.launch.xml</code> as the entry
+file. It loads children launch files, such as
+<a href="https://github.com/autowarefoundation/sample_sensor_kit_launch">sample_sensor_kit_launch</a>
+and
+<a href="https://github.com/autowarefoundation/sample_vehicle_launch">sample_vehicle_launch</a>
+to start subsystems.</p>
+<p>Pass <code>map_path</code>, <code>vehicle_model</code> and <code>sensor_model</code> arguments to
+launch the Autoware.</p>
+<pre><code class="language-bash">ros2 launch autoware_launch autoware.launch.xml \
+    map_path:=$HOME/autoware_map/sample-map-planning \
+    vehicle_model:=sample_vehicle \
+    sensor_model:=sample_sensor_kit
+</code></pre>
+<h3 id="message-definition"><a class="header" href="#message-definition">Message Definition</a></h3>
+<p>Message definition files can be discovered from these repositories.</p>
+<ul>
+<li><a href="https://github.com/tier4/autoware_auto_msgs">autoware_auto_msgs</a></li>
+<li><a href="https://github.com/tier4/tier4_autoware_msgs">tier4_autoware_msgs</a></li>
+</ul>
+<p>The path of the message type can be learned from the IDL file
+path. For example, the file for <code>AckermannControlCommand</code> message from
+<a href="https://github.com/tier4/autoware_auto_msgs/tree/tier4/main/autoware_auto_control_msgs">autoware_auto_control_msgs</a>
+is located at:</p>
+<pre><code>autoware_auto_control_msgs/msg/AckermannControlCommand.idl
+</code></pre>
+<p>It can be translated to the Python import path.</p>
+<pre><code class="language-python">from autoware_auto_control_msgs.msg import AckermannControlCommand
+</code></pre>
+<p>Let's peek into the <code>AckermannControlCommand.idl</code> file shown as follows.</p>
+<pre><code class="language-idl">#include &quot;autoware_auto_control_msgs/msg/AckermannLateralCommand.idl&quot;
+#include &quot;autoware_auto_control_msgs/msg/LongitudinalCommand.idl&quot;
+#include &quot;builtin_interfaces/msg/Time.idl&quot;
+
+module autoware_auto_control_msgs {
+  module msg {
+    @verbatim (language=&quot;comment&quot;, text=
+      &quot; Lateral and longitudinal control message for Ackermann-style platforms&quot;)
+    struct AckermannControlCommand {
+      builtin_interfaces::msg::Time stamp;
+
+      autoware_auto_control_msgs::msg::AckermannLateralCommand lateral;
+      autoware_auto_control_msgs::msg::LongitudinalCommand longitudinal;
+    };
+  };
+};
+</code></pre>
+<p>The layout description can be structured as the tree, showing the the
+<code>AckermannControlCommand</code> message has three fields.</p>
+<ul>
+<li>module: autoware_auto_control_msgs
+<ul>
+<li>module: msg
+<ul>
+<li>struct: AckermannControlCommand
+<ul>
+<li>field: Time stamp</li>
+<li>field: AckermannLateralCommand lateral</li>
+<li>field: LongitudinalCommand longitudinal</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="parameters"><a class="header" href="#parameters">Parameters</a></h3>
+<p>TODO(aesop): Configuration, Tricks</p>
+<ul>
+<li><a href="https://github.com/autowarefoundation/sample_sensor_kit_launch">sensor_kit_launch</a></li>
+<li><a href="https://github.com/autowarefoundation/sample_vehicle_launch">sample_vehicle_launch</a></li>
+<li><a href="https://github.com/autowarefoundation/autoware_individual_params">autoware_individual_params</a></li>
 </ul>
 
                     </main>

@@ -22,7 +22,7 @@ vehicle, you must modified the configuration in file
 (similar file named sensors_calibration.yaml may appear at multiple
 places, you should be aware of the file path)
 
-```sh
+```bash
 base_link:
   sensor_kit_base_link:
     x: 0.9

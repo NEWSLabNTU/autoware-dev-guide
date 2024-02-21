@@ -1,0 +1,937 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Autoware Developer Guide fron NEWSLAB, NTU</title>
+                <meta name="robots" content="noindex" />
+                
+
+        <!-- Custom HTML head -->
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+                <link rel="icon" href="favicon.svg">
+                        <link rel="shortcut icon" href="favicon.png">
+                <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+                <link rel="stylesheet" href="css/print.css" media="print">
+        
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+                <link rel="stylesheet" href="fonts/fonts.css">
+        
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+            </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="index.html">Introduction</a></li><li class="chapter-item expanded "><a href="dev-env.html"><strong aria-hidden="true">1.</strong> Development Environment</a></li><li class="chapter-item expanded "><a href="build-autoware.html"><strong aria-hidden="true">2.</strong> Build Autoware</a></li><li class="chapter-item expanded "><a href="customization.html"><strong aria-hidden="true">3.</strong> Customization</a></li><li class="chapter-item expanded "><a href="sensors.html"><strong aria-hidden="true">4.</strong> Sensors</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="sensors/velodyne-vlp32.html"><strong aria-hidden="true">4.1.</strong> LiDAR: Velodyne VLP-32C</a></li><li class="chapter-item expanded "><a href="sensors/blickfield-cube1.html"><strong aria-hidden="true">4.2.</strong> LiDAR: Blickfield Cube1</a></li><li class="chapter-item expanded "><a href="sensors/zed-x-mini.html"><strong aria-hidden="true">4.3.</strong> Camera: ZED X Mini</a></li></ol></li><li class="chapter-item expanded "><a href="perception.html"><strong aria-hidden="true">5.</strong> Perception</a></li><li class="chapter-item expanded "><a href="control.html"><strong aria-hidden="true">6.</strong> Control</a></li><li class="chapter-item expanded "><a href="vehicle-config.html"><strong aria-hidden="true">7.</strong> Vehicle Configuration</a></li><li class="chapter-item expanded "><a href="map-and-localization.html"><strong aria-hidden="true">8.</strong> Map &amp; Localization</a></li></ol>            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                                                <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                                            </div>
+
+                    <h1 class="menu-title">Autoware Developer Guide fron NEWSLAB, NTU</h1>
+
+                    <div class="right-buttons">
+                                                <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                                                                        
+                    </div>
+                </div>
+
+                                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="the-autoware-development-guide-from-newslab-ntu"><a class="header" href="#the-autoware-development-guide-from-newslab-ntu">The Autoware Development Guide from NEWSLAB, NTU</a></h1>
+<p>Autoware is one of the most complete and comprehensive open-source
+project for autonomous driving. Our team has been extensively using
+this software to deploy it on various kinds of vehicles, and regard it
+as a major research platform. The aim of this guide is to summarize
+the work and experience to customize the Autoware to fit into our
+research, and provide good practices on software development.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="development-environment"><a class="header" href="#development-environment">Development Environment</a></h1>
+<h2 id="system-requirements"><a class="header" href="#system-requirements">System Requirements</a></h2>
+<p>Autoware imposes strict requirement on system environment. It requires
+specific operating system, specific CUDA version and specific ROS
+version. Be careful to set up your box.</p>
+<ul>
+<li>Ubuntu 22.04</li>
+<li>ROS Humble + Cyclone DDS as default RMW back-end</li>
+<li>CUDA 12.3</li>
+<li>CUDNN 8.9.5.29-1+cuda12.2</li>
+<li>TensorRT 8.6.1.6-1+cuda12.0</li>
+</ul>
+<p>In the case that the box does not support required OS or NVIDIA driver
+is not available. One workaround is to start an Ubuntu 22.04 container
+and put Autoware into it.</p>
+<h2 id="the-autoware-complex"><a class="header" href="#the-autoware-complex">The Autoware Complex</a></h2>
+<p>Autoware itself is a large ROS project. The packaging and execution
+follow ROS convention. Autoware provides various kinds of components
+to complete an autonomous vehicle system, including perception,
+planning and more parts. It's recommended to explore the node
+<a href="https://autowarefoundation.github.io/autoware-documentation/main/design/autoware-architecture/node-diagram/overall-node-diagram-autoware-universe.drawio.svg">diagram</a>
+to explore the packages and their relations.</p>
+<ul>
+<li>Message type definitions
+<ul>
+<li><a href="https://github.com/tier4/autoware_auto_msgs">autoware_auto_msgs</a></li>
+<li><a href="https://github.com/tier4/tier4_autoware_msgs">tier4_autoware_msgs</a></li>
+</ul>
+</li>
+<li>Launch script packages to start a component and the whole system.
+<ul>
+<li><a href="https://github.com/autowarefoundation/autoware_launch">autoware_launch</a>
+to launch the whole system.</li>
+<li><a href="https://github.com/autowarefoundation/sample_sensor_kit_launch">sample_sensor_kit_launch</a>
+to launch sensor driving nodes.</li>
+<li><a href="https://github.com/autowarefoundation/sample_vehicle_launch">sample_vehicle_launch</a>
+to launch motor controlling nodes</li>
+</ul>
+</li>
+<li>Packages for vehicle sensing, control, etc
+<ul>
+<li>See the section below the learn the Autoware project layout.</li>
+</ul>
+</li>
+</ul>
+<h2 id="understanding-autoware-launch-system"><a class="header" href="#understanding-autoware-launch-system">Understanding Autoware Launch System</a></h2>
+<p>The way to run Autoware depends on the execution scenarios, which are
+written as respective launch files. The files can be found in the
+<a href="https://github.com/autowarefoundation/autoware_launch/tree/main/autoware_launch/launch">autoware_launch</a>
+package.  The launch file <code>autoware.launch.xml</code> is entry file to
+launch the whole system. To launch this file, these arguments
+<code>map_path</code>, <code>vehicle_model</code>, and <code>sensor_model</code> must be assigned.</p>
+<pre><code class="language-bash">ros2 launch autoware_launch autoware.launch.xml \
+    map_path:=$HOME/autoware_map/sample-map-planning \
+    vehicle_model:=sample_vehicle \
+    sensor_model:=sample_sensor_kit 
+</code></pre>
+<p>TODO(aesop): Configuration, Tricks</p>
+<h2 id="autoware-source-code-layout"><a class="header" href="#autoware-source-code-layout">Autoware Source Code Layout</a></h2>
+<p>Autoware source code consists of many GitHub repositories. The
+top-level repository is
+<a href="https://github.com/autowarefoundation/autoware">autowarefoundation/autoware</a>,
+which does not include any source code. It has a <code>autoware.repos</code> file
+listing dependent repos. Users have to run <code>vcs import &lt; autoware.repos</code> to download these repositories.</p>
+<p>Note that <code>vcs</code> does not provide fine-grained version control. Hence,
+downloaded repos do not pin to specific Git commits, but tracks to
+update-to-date master branch. It makes troubles sometimes because repos
+change frequently.</p>
+<p>Read <code>autoware.repos</code> and you can see the packages classified as
+follows.</p>
+<ul>
+<li><a href="https://github.com/autowarefoundation/autoware.core">core</a>
+<ul>
+<li>Contains the most important package for self-driving cars and
+determine the message field type and field name for services.</li>
+</ul>
+</li>
+<li><a href="https://github.com/autowarefoundation/autoware.universe">universe</a>
+<ul>
+<li>Packages developed by other third-party communities.</li>
+</ul>
+</li>
+<li><a href="https://github.com/autowarefoundation/autoware_launch">launcher</a>
+<ul>
+<li>A launch configuration repository for Autoware, containing node
+configurations and their parameters, where the launch files will be.</li>
+</ul>
+</li>
+<li><a href="https://autowarefoundation.github.io/autoware-documentation/main/design/autoware-architecture/sensing/">sensor_component</a>
+<ul>
+<li>Sensing component is a collection of modules that applies some
+primitive pre-processing to the raw sensor data. The sensor input
+formats are defined in this component.</li>
+</ul>
+</li>
+<li><a href="https://github.com/autowarefoundation/sample_sensor_kit_launch">sensor_kit</a>
+<ul>
+<li>Launch each sensors according to the parameters.</li>
+</ul>
+</li>
+<li><a href="https://github.com/autowarefoundation/sample_vehicle_launch">vehicle</a>
+<ul>
+<li>Launch each vehicles according to the parameters.</li>
+</ul>
+</li>
+<li><a href="https://github.com/autowarefoundation/sample_vehicle_launch">param</a>
+<ul>
+<li>This repository stores parameters that change depending on each
+vehicle.</li>
+</ul>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="build-autoware"><a class="header" href="#build-autoware">Build Autoware</a></h1>
+<h2 id="source-code-and-dependency-preparation"><a class="header" href="#source-code-and-dependency-preparation">Source Code and Dependency Preparation</a></h2>
+<p>Follow the instructions on this
+<a href="https://autowarefoundation.github.io/autoware-documentation/main/installation/autoware/source-installation/">page</a>
+to build Autoware source code.</p>
+<p>Switch to specific branch depending on your <strong>OS</strong> and <strong>ROS2</strong>
+version.</p>
+<p><img src="./media/media/T8NG073FC93J12RFQS565473CG.png" alt="" /></p>
+<p>Clone the Autoware Repo.</p>
+<pre><code class="language-bash">git clone https://github.com/autowarefoundation/autoware.git
+cd autoware
+</code></pre>
+<p>There are two ways to install dependent libraries. Either (1) run the
+official Ansible script or (2) install the them manually.</p>
+<p>The Ansible script is only recommended for freshly installed Ubuntu
+systems. It will interfere with existing CUDA. If you have custom CUDA
+installation, such as JetPack, it's recommended to go on the manual way.</p>
+<p>Install dependent packages. You may skip “Install ROS 2“ if you already
+have ROS 2 installed. The “Install Nvidia CUDA/cuDNN/TensorRT“ should be
+skipped if they are already configured on the system.</p>
+<p><img src="./media/media/449J2N847D0G5E18Q4VIRQK5US.png" alt="" />
+<img src="./media/media/PTQM7GKMOL63J03D83GHCRA0C0.png" alt="" /></p>
+<h2 id="compile-the-autoware-project"><a class="header" href="#compile-the-autoware-project">Compile the Autoware Project</a></h2>
+<p>The Autoware repo layout itself follows ROS convention. All packages
+reside in the <code>src</code> directory.</p>
+<h3 id="the-vcs-rosdep-colcon-chain"><a class="header" href="#the-vcs-rosdep-colcon-chain">The vcs-rosdep-colcon Chain</a></h3>
+<p>The vcs → rosdep → colcon chain is a common practice to build most ROS
+projects, including Autoware.</p>
+<ul>
+<li>
+<p>Run <code>vcs</code> to download dependent repositories into the <code>src</code> folder.</p>
+<pre><code class="language-bash">cd autoware
+mkdir src
+vcs import src &lt; autoware.repos
+</code></pre>
+</li>
+<li>
+<p>Run <code>rosdep</code> to install system dependencies. It scans through
+packages within <code>src</code> and runs <code>apt install xxx</code> according to their
+dependency requirements.</p>
+<pre><code class="language-bash">source /opt/ros/humble/setup.bash
+rosdep install -y --from-paths src --ignore-src --rosdistro $ROS_DISTRO
+</code></pre>
+</li>
+<li>
+<p>Build the whole Autoware project using <code>colcon</code>. It scans through
+packages in <code>src</code> and compile them according to their dependency
+order.</p>
+<pre><code class="language-bash">colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
+</code></pre>
+</li>
+</ul>
+<h3 id="compilation-result"><a class="header" href="#compilation-result">Compilation Result</a></h3>
+<p><code>colcon</code> produces the followings directories serving respective
+purposes.</p>
+<ul>
+<li><code>install</code> places final products of the build, storing compiled
+program binaries and libraries.</li>
+<li><code>build</code> stores the intermediate files for the build.</li>
+<li><code>log</code> saves the compilation log.</li>
+</ul>
+<p>The <code>--symlink-install</code> option creates symbolic links to source files
+in the installation. It makes life easier in the case that Python
+scripts and configuration files are modified frequently.</p>
+<h2 id="troubleshooting"><a class="header" href="#troubleshooting">Troubleshooting</a></h2>
+<h3 id="missing-dependencies"><a class="header" href="#missing-dependencies">Missing Dependencies</a></h3>
+<p>In many cases, compilation error is due to missing dependencies. Run
+<code>rosdep</code> to make sure required system dependencies available before
+compilation.</p>
+<pre><code class="language-bash">rosdep update --rosdistro $ROS_DISTRO
+</code></pre>
+<h3 id="disable-warning-as-errors"><a class="header" href="#disable-warning-as-errors">Disable Warning-as-errors</a></h3>
+<p>Autoware enforces strict auditing rules by default. Remove the
+<strong>-Werror</strong> option to lift the restriction. Open autoware_package.cmake
+and modify it as follows.7</p>
+<pre><code class="language-diff">- add_compile_options(-Wall -Wextra -Wpedantic -Werror)
++ add_compile_options(-Wall -Wextra -Wpedantic)
+</code></pre>
+<h3 id="compile-error-on-trtexec_vender"><a class="header" href="#compile-error-on-trtexec_vender">Compile Error on trtexec_vender</a></h3>
+<p>Facing problem when building <strong>trtexec_vender.</strong> Modify
+src/universe/autoware.universe/common/trtexec_vendor/CMakeLists.txt.</p>
+<pre><code class="language-diff">- GIT_TAG ${TENSORRT_VERSION}
++ GIT_TAG v${TENSORRT_VERSION}
+</code></pre>
+<h3 id="restrict-parallel-colcon-workers"><a class="header" href="#restrict-parallel-colcon-workers">Restrict Parallel Colcon Workers</a></h3>
+<p>Colcon build failed because too many packages were building in parallel.
+(Exceeding the hardware load limit.) Adding parameter
+“<strong>--parallel-workers</strong>“ when executing <strong>colcon build</strong>.</p>
+<pre><code class="language-bash">colcon build \
+    --symlink-install \
+    --cmake-args -DCMAKE_BUILD_TYPE=Release \
+    --parallel-workers 1
+</code></pre>
+<p>TODO(Roger)</p>
+<h2 id="using-autoware-rviz"><a class="header" href="#using-autoware-rviz">Using Autoware RViz</a></h2>
+<p>TODO(Roger)</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="customization"><a class="header" href="#customization">Customization</a></h1>
+<p>The customization process starts by a new repository along side
+Autoware. We did not modify the Autoware source repo because it creates
+hard forks. Instead, the project-specific packages, launch files and
+configuration files are placed in the new repo. We will play the
+<strong>source combo</strong> trick to append our packages to existing compiled
+Autoware.</p>
+<h2 id="the-source-combo-trick"><a class="header" href="#the-source-combo-trick">The Source Combo Trick</a></h2>
+<h2 id="project-layout--version-control"><a class="header" href="#project-layout--version-control">Project Layout &amp; Version Control</a></h2>
+<p>TODO(Jerry)</p>
+<p><img src="./media/media/AV7O6G2M7H3F52ALL1I19C65B8.png" alt="" /></p>
+<p><img src="./media/media/43KFTV7VD124T0GBQTOKSMGFVO.png" alt="" /></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="sensors"><a class="header" href="#sensors">Sensors</a></h1>
+<p>Sensor packages are usually maintained by vendors. It usually ships a
+vendor-specific driver and a ROS package depending on that driver. For
+example, the system has to install <code>blickfeld-scanner-lib</code> to allow
+the ROS package to scan data from Blickfeld Cube1 LiDARs.</p>
+<p>There are chances that the ROS package could be out-of-date, the driver
+is incompatible with the box, or the vendor does not provide ROS
+implementation. For example, ZED X shipped a closed-source driver
+running on old Ubuntu 20.04, which OS is incompatible with Autoware.
+Blickfeld ships an old ROS package not satisfying Autoware's need. Ask
+the vendor for support to resolve these issues. Good luck with your
+cherished sensor.</p>
+<h2 id="lidars-and-radars"><a class="header" href="#lidars-and-radars">LiDARs and Radars</a></h2>
+<p>It's common that the LiDAR sensor connects to the box via an Ethernet
+cable, transmitting UDP packets in vendor-specific format. The ROS
+node or the driver listens and converts them into point cloud frames
+in <code>sensor_msgs/msg/PointCloud2</code> message type.</p>
+<p>These steps must be done providing that LiDARs are Ethernet connected.</p>
+<ul>
+<li>
+<p>The box and the LiDAR reside in the local network sharing a common IP
+prefix. You may assign a static IP to the box.</p>
+<ul>
+<li>e.g. The Velodyne VLP32-C has the address 192.168.10.1. The box
+should be addressed at 192.168.10.x other than 192.168.10.1.</li>
+</ul>
+</li>
+<li>
+<p>Some boxes, such as AGX Orin, have only one Ethernet port. Use
+USB-to-Ethernet adapter would be your friend.</p>
+</li>
+</ul>
+<h2 id="cameras"><a class="header" href="#cameras">Cameras</a></h2>
+<p>TODO(Jerry)</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="velodyne-vlp-32c"><a class="header" href="#velodyne-vlp-32c">Velodyne VLP-32C</a></h1>
+<p>TODO(Allan&amp;子騰)</p>
+<p>Sensor’s configuration can be modified in file
+<code>autoware/src/sensor_kit/sample_sensor_kit_launch/common_sensor_launch/launch/velodyne_VLS128.launch.xml</code>,
+since we choose to other sensor_kit setting rather than create one for
+our usage.</p>
+<pre><code class="language-xml">&lt;arg name=&quot;model&quot; default=&quot;VLP32&quot;/&gt;
+
+&lt;!-- omit... --&gt;
+
+&lt;arg name=&quot;sensor_ip&quot; default=&quot;192.168.10.10&quot;/&gt;
+</code></pre>
+<p>To correct lidar’s relative position and direction, compare with
+vehicle, you must modified the configuration in file
+<code>autoware/src/param/autoware_individual_params/individual_params/config/default/sample_sensor_kit/sensors_calibration.yaml</code>.</p>
+<p>(similar file named sensors_calibration.yaml may appear at multiple
+places, you should be aware of the file path)</p>
+<pre><code class="language-bash">base_link:
+  sensor_kit_base_link:
+    x: 0.9
+    y: 0.0
+    z: 2.0
+    roll: -0.001
+    pitch: 0.015
+    yaw: -0.0364
+  velodyne_rear_base_link:
+    x: -0.358
+    y: 0.0
+    z: 1.631
+    roll: -0.02
+    pitch: 0.7281317
+    yaw: 3.141592
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="blickfield-cube1"><a class="header" href="#blickfield-cube1">Blickfield Cube1</a></h1>
+<p>TODO(許)</p>
+<p>The BLS driver.</p>
+<ul>
+<li>Connect with Blickfeld Cube1.
+<ul>
+<li>Add a wired interface with the IP address 192.168.26.1/24
+<img src="sensors/../media/media/1VPI4F2KB14C1D751DJJIDH04K.png" alt="" /></li>
+</ul>
+</li>
+<li>The displayed technology is only supported by the Chrome browser. Use
+Chrome to check if the webpage correctly displays the point cloud.
+<img src="sensors/../media/media/6G7F8NBRKL189C8E704QFUS71C.png" alt="" /></li>
+<li>Install blickfeld-scanner-library (BSL). Please check the official
+<a href="https://docs.blickfeld.com/cube/latest/external/blickfeld-scanner-lib/install.html">installation
+document</a>.</li>
+</ul>
+<pre><code class="language-bash"># download
+sudo apt install libprotobuf-dev libprotobuf23 protobuf-compiler
+git clone https://github.com/Blickfeld/blickfeld-scanner-lib.git
+cd blickfeld-scanner-lib
+git checkout v2.20.6
+git submodule update --init --recursive
+
+# build
+cmake -B build -S .
+cmake --build build --parallel
+sudo cmake --install build
+</code></pre>
+<ul>
+<li>Build blickfeld cube 1 ROS2 package</li>
+</ul>
+<p><a href="https://docs.blickfeld.com/cube/latest/external/ros/driver-v2/README.html">Blickfeld ROS2 package official
+document</a></p>
+<ul>
+<li>
+<p>Download Cube 1 ROS 2 Driver from
+<a href="https://www.blickfeld.com/resources/">https://www.blickfeld.com/resources/</a></p>
+</li>
+<li>
+<p>Install dependencies</p>
+</li>
+</ul>
+<pre><code class="language-bash">sudo apt install ros-${ROS_DISTRO}-diagnostic-updater
+sudo apt install ros-${ROS_DISTRO}-diagnostic-msgs
+</code></pre>
+<ul>
+<li>Source ROS2 and create colcon workspace</li>
+</ul>
+<pre><code class="language-bash">source /opt/ros/${ROS_DISTRO}/setup.bash
+mkdir -p ~/blickfeld/src
+</code></pre>
+<ul>
+<li>Move the <code>ros2_blickfeld_driver</code> package into <code>blickfeld/src</code></li>
+<li>Modify <code>blickfeld/src/ros2_blickfeld_driver_src-v1.5.5/CMakeLists.txt</code>
+<ul>
+<li>Change C++ standard from 14 to 17</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-diff">- set(CMAKE_CXX_STANDARD 14)
++ set(CMAKE_CXX_STANDARD 17)
+</code></pre>
+<ul>
+<li>Update Blickfeld scanner package version from 2.18.2 to 2.20.6</li>
+</ul>
+<pre><code class="language-diff">- find_package(blickfeld-scanner 2.18.2 REQUIRED full)
++ find_package(blickfeld-scanner 2.20.6 REQUIRED full)
+</code></pre>
+<ul>
+<li>Add include directories for ROS Humble</li>
+</ul>
+<pre><code class="language-diff">+ include_directories(/opt/ros/humble/include/tf2_geometry_msgs)
++ include_directories(/opt/ros/humble/include/tf2)
++ include_directories(/opt/ros/humble/include/tf2_ros)
++ include_directories(/opt/ros/humble/include/cv_bridge)
++ include_directories(/opt/ros/humble/include/rclcpp)
++ include_directories(/opt/ros/humble/include/rcl)
++ include_directories(/opt/ros/humble/include/rcl_yaml_param_parser)
++ include_directories(/opt/ros/humble/include/rcpputils)
++ include_directories(/opt/ros/humble/include/tracetools)
++ include_directories(/opt/ros/humble/include/rcl_interfaces)
++ include_directories(/opt/ros/humble/include/libstatistics_collector)
++ include_directories(/opt/ros/humble/include/statistics_msgs)
++ include_directories(/opt/ros/humble/include/diagnostic_msgs)
++ include_directories(/opt/ros/humble/include/rclcpp_components)
++ include_directories(/opt/ros/humble/include/class_loader)|
+</code></pre>
+<ul>
+<li>
+<p>Modify
+<code>blickfeld/src/ros2_blickfeld_driver_src-v1.5.5/src/blickfeld_driver.cpp</code></p>
+<ul>
+<li>Add <code>.c_str()</code> to convert the string to a C-style string</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-bash">- log_message.second.str());
++ log_message.second.str().c_str());
+</code></pre>
+<ul>
+<li>Build your workspace</li>
+</ul>
+<pre><code class="language-bash">cd ~/blickfield/src
+colcon build --symlink-install --cmake-clean-first
+</code></pre>
+<ul>
+<li>Running the Blickfeld ROS2 node
+<ul>
+<li>Switching to desired DDS</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-bash">export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+</code></pre>
+<ul>
+<li>Run the ROS2 node, change the blickfeld topic name to fit autoware
+pointcloud_preprocessor</li>
+</ul>
+<pre><code class="language-bash">ros2 run blickfeld_driver blickfeld_driver_node \
+    --ros-args -p host:=192.168.26.26 \
+    --remap __node:=bf_lidar \
+    --remap bf_lidar/point_cloud_out:=input_points_raw0
+</code></pre>
+<ul>
+<li>Visualize the published data
+<ul>
+<li>Launch rviz2, config Fixed Frame to <code>lidar</code> and Topic to
+<code>input_points_raw0</code></li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-bash">rviz2
+</code></pre>
+<p><img src="sensors/../media/media/H1UCP6MS0P1EB9FFFT2RQ08IJS.png" alt="" /></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="camera-zed-x-mini"><a class="header" href="#camera-zed-x-mini">Camera: ZED X Mini</a></h1>
+<p>TODO(許)</p>
+<p>ZED SDK is bounded to jetpack: version 5.1.2 (ubuntu 20.04)</p>
+<p>As of Jan 11, 2024, there is currently no ZED SDK suitable for jetpack
+6.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><p>Failed to install
+SDK in ubuntu 22.04 manually and compile ros2 package:</p>
+<ul>
+<li><p>./ZED_SDK_Tegra_L4T35.4_v4.0.8.zstd.run -- silent skip_cuda<br />
+(Jetson Xavier, Orin AGX/NX/Nano, CUDA 11.4)</p></li>
+<li><p><a
+href="https://github.com/stereolabs/zed-ros2-wrapper">ZED ROS 2 wrapper</a> depends on CUDA</p></li>
+<li><p>CUDA version : </p>
+<ul>
+<li><p>11.4 only support ubuntu 20.04</p></li>
+<li><p>12.3 successfully installed but ZED SDK doesn’t support </p></li>
+</ul></li>
+<li><p>Architecture</p></li>
+</ul>
+<blockquote>
+<p>![](../media/media/PU1PQLTPMT32J4BUQRC5AU7DU0.png)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p>How to install ZED in jetpack5:</p>
+<p>Please follow the instructions in this
+<a href="https://github.com/stereolabs/zed-ros2-wrapper">page</a>.</p>
+<p>Stereolabs provides a ROS2 wrapper for the ZED SDK. It is designed to
+integrate ZED stereo cameras with ROS2.</p>
+<p>To install zed-ros2-wrapper, there are some prerequisites:</p>
+<p><img src="sensors/../media/media/3S0M3RJVJ9061F0E1PNCKBBUI0.png" alt="" /></p>
+<p>Make sure to install all of them in the corresponding version.</p>
+<p>To install the <strong>zed_ros2_wrapper</strong>, open a bash terminal, clone the
+package from Github, and build it:</p>
+<pre><code class="language-bash"># Create your workspace if it does not exist
+mkdir -p ~/ros2_ws/src/
+cd ~/ros2_ws/src/
+git clone --recursive https://github.com/stereolabs/zed-ros2-wrapper.git
+cd ..
+
+# install dependencies
+sudo apt update
+rosdep install --from-paths src --ignore-src -r -y
+
+# build the workspace
+colcon build --symlink-install \
+    --cmake-args=-DCMAKE_BUILD_TYPE=Release \
+    --parallel-workers $(nproc)
+</code></pre>
+<p>To start the ZED node, open a bash terminal and use the CLI command ros2
+launch:</p>
+<pre><code class="language-bash">ros2 launch zed_wrapper zed_camera.launch.py camera_model:=&lt;camera_model&gt;
+</code></pre>
+<p>Replace <code>&lt;camera_model&gt;</code> with the model of the camera that you are
+using: 'zed', 'zedm', 'zed2', 'zed2i', 'zedx', 'zedxm'.</p>
+<p>You can also start a pre-configured instance of rviz2 to visualize all
+the information available.</p>
+<p>Please see this
+<a href="https://github.com/stereolabs/zed-ros2-examples#build-the-package">page</a>
+for source installation.</p>
+<p>First, build the package:</p>
+<pre><code class="language-bash">cd ~/ros2_ws/src/ #use your current ros2 workspace
+folder
+git clone https://github.com/stereolabs/zed-ros2-examples.git
+cd ../
+rosdep install --from-paths src --ignore-src -r -y
+colcon build --symlink-install --cmake-args=-DCMAKE_BUILD_TYPE=Release
+source ~/.bashrc|
+</code></pre>
+<p>Then, you can use following command to start the ZED ROS2 Wrapper node
+and Rviz2 simultaneously.</p>
+<pre><code class="language-bash">ros2 launch zed_display_rviz2 display_zed_cam.launch.py camera_model:=&lt;camera_model&gt;
+</code></pre>
+<p>Below is the example running rviz2:</p>
+<p><img src="sensors/../media/media/9991HHCBI91STC3BBJPUA3THIS.png" alt="" /></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="perception"><a class="header" href="#perception">Perception</a></h1>
+<h2 id="example-lidar_centerpoint"><a class="header" href="#example-lidar_centerpoint">Example: lidar_centerpoint</a></h2>
+<p>TODO(allan&amp;簡, 仴筑): the usage of model files. The CUDA env setup.
+Testing procedure.</p>
+<p>Newslab note: <a href="https://newslabn.csie.ntu.edu.tw:3000/en/wayside-team/notes/2022-09-22_run-autoware-lidar_centerpoint">Launch lidar-centerpoint demo
+document</a></p>
+<p>GitHub :
+<a href="https://github.com/autowarefoundation/autoware.universe/tree/main/perception/lidar_centerpoint/launch/centerpoint_vs_centerpoint-tiny">centerpoint_vs_centerpoint-tiny</a></p>
+<p><img src="./media/media/O0BQJ1K3893KN41H3QOSIVQSSO.jpg" alt="" /></p>
+<p><code>centerpoint\_vs\_centerpoint</code> visualizer</p>
+<ul>
+<li>Download and compile model files
+<ul>
+<li>Create a folder named <code>~/autoware_data/lidar_centerpoint</code>, where
+contains four model files.
+<ul>
+<li><a href="https://awf.ml.dev.web.auto/perception/models/centerpoint/v2/pts_voxel_encoder_centerpoint.onnx">pts_voxel_encoder_centerpoint.onnx</a></li>
+<li><a href="https://awf.ml.dev.web.auto/perception/models/centerpoint/v2/pts_backbone_neck_head_centerpoint.onnx">pts_backbone_neck_head_centerpoint.onnx</a></li>
+<li><a href="https://awf.ml.dev.web.auto/perception/models/centerpoint/v2/pts_voxel_encoder_centerpoint_tiny.onnx">pts_voxel_encoder_centerpoint.onnx</a></li>
+<li><a href="https://awf.ml.dev.web.auto/perception/models/centerpoint/v2/pts_backbone_neck_head_centerpoint_tiny.onnx">pts_backbone_neck_head_centerpoint.onnx</a></li>
+</ul>
+</li>
+<li>When first running lidar_centerpoint package, it will automatically
+compile and produce engine file. The engine file is related to CUDA
+version. As a result, if you want to run lidar_centerpoint on a
+different computer where CUDA version is different from the previous
+one, you need to delete the engine file and recompile.</li>
+</ul>
+</li>
+<li>Testing procedure
+<ul>
+<li><code>$HOME/2023-08-09_rsu-to-car-lidar-fusion-rosbag/rosbag2_2023_08_09-13_33_22</code>
+can be change to other rosbag record for testing.</li>
+<li>The output detection will be sent to <code>/objects</code> topic, you may use
+<code>ros2 topic echo</code> command to check whether the package works.</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-bash">source ~/autoware/install/setup.bash
+ros2 bag play -l \
+    $HOME/2023-08-09_rsu-to-car-lidar-fusion-rosbag/rosbag2_2023_08_09-13_33_22 \
+    --remap /velodyne_points:=/sensing/lidar/pointcloud
+ros2 run tf2_ros static_transform_publisher 0 0 0 0 0 0 base_link velodyne
+ros2 launch lidar_centerpoint lidar_centerpoint.launch.xml
+</code></pre>
+<h2 id="example-qbox-driver"><a class="header" href="#example-qbox-driver">Example: QBOX Driver</a></h2>
+<p>TODO:(許)</p>
+<p>The QBOX driver is a ROS node designed for reading Ethernet messages
+from QBOX. It publishes these messages into various ROS topics and can
+automatically stop the Autoware ego vehicle by invoking the
+<code>/api/operation_mode/change_to_stop</code> service in Autoware if it detects
+a high collision risk, as indicated by a low time-to-collision (TTC)
+value.</p>
+<ul>
+<li>
+<p>Clone the
+<a href="https://github.com/NEWSLabNTU/2023-nycu-project/tree/main/src/qbox">Repo</a>,
+ensure the project is built following the tutorial.</p>
+</li>
+<li>
+<p>Run the QBOX node using the following command.</p>
+</li>
+</ul>
+<pre><code class="language-bash">source ~/autoware/install/setup.bash
+source install/setup.bash
+ros2 run qbox qbox
+</code></pre>
+<p>To specify custom values for <code>ip</code>, <code>port</code>, or <code>ttc</code>, use the
+following format:</p>
+<pre><code class="language-bash">source ~/autoware/install/setup.bash
+source install/setup.bash
+ros2 run qbox qbox --ros-args -p ip:=&lt;your_ip&gt; -p port:=&lt;your_port&gt; -p ttc:=&lt;your_ttc&gt;
+</code></pre>
+<p>For example:</p>
+<pre><code class="language-bash">ros2 run qbox qbox --ros-args -p ip:=10.0.0.2 -p port:=9998 -p ttc:=5
+</code></pre>
+<ul>
+<li>
+<p>Testing if ego vehicle stop when it detects a high collision risk.</p>
+<ul>
+<li>Follow the tutorial in <a href="https://autowarefoundation.github.io/autoware-documentation/main/tutorials/ad-hoc-simulation/planning-simulation/#planning-simulation">Planning
+simulation</a>
+to launch the simulator.</li>
+<li>Start the ego vehicle in AUTONOMOUS mode.</li>
+<li>Observe if the ego vehicle stop due to low TTC values or check if
+OperationMode in AutowareStatePanel change from AUTONOMOUS to
+STOP.
+<ul>
+<li>AUTONOMOUS</li>
+</ul>
+</li>
+</ul>
+<p><img src="./media/media/A0P94RPTUT70T4AK50B4J4GFL4.png" alt="" /></p>
+</li>
+<li>
+<p>STOP</p>
+<p><img src="./media/media/5GJ2F3B3213SB8OUUCVMFMP9QO.png" alt="" /></p>
+</li>
+<li>
+<p>Check if ROS topic publish correctly</p>
+<p>Run the node and test the following data topics in separate shells:</p>
+</li>
+<li>
+<p>FCW Data: Observe <code>message</code> and <code>TTC.value</code> for collision risk
+assessment.</p>
+<pre><code class="language-bash">ros2 topic echo /perception/fcw_TTC
+</code></pre>
+</li>
+<li>
+<p>LDW Data: Monitor <code>message</code> and <code>LD_happened_code.value</code> for lane
+departure alerts.</p>
+<pre><code class="language-bash">ros2 topic echo /perception/ldw_lane_departure
+</code></pre>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="control"><a class="header" href="#control">Control</a></h2>
+<p>The controller module is one of the most diverse part in Autoware.
+That's because the controlling mechanism is vehicle-specific.
+Petrol-driven cars have pedals. Electric cars adopts electronic
+stability controller (ESC). Small battery-driven cars use PWM
+controller. Hence, there is no common interface for low-level control.</p>
+<p>Autoware does not assume the controlling mechanism, but sends commands
+in <code>autoware_auto_control_msgs/AckermannControlCommand</code> type, which
+include the target speed and target acceleration, etc. A vehicle driver
+node must be implemented to convert these commands to low-level
+controlling commands.</p>
+<p>Autoware defaults to the PACMod protocol over CANbus to send commands.
+Unfortunately, it is available only on a handful of vehicles
+(<a href="https://autonomoustuff.atlassian.net/wiki/spaces/PACMod/pages/1510604805/Vehicle+Platform+PACMod+Compatibility">link</a>).
+There are chances that you write your vehicle driver.</p>
+<h2 id="example-artc-canbus"><a class="header" href="#example-artc-canbus">Example: ARTC CANbus</a></h2>
+<p>To communicate with CAN bus network, we mainly have two ways:
+Firstly, use the <code>ros2_socketcan</code> ROS package which provided by AWF.
+It creates two topics: <code>from_can_bus</code> and <code>to_can_bus</code>, the former is
+a topic to be subscribed to read CAN bus frame from the CAN bus
+network and the latter is a topic to be published to write CAN bus
+frame to CAN bus network. Note that you have to plugin your Kvaser
+adapter before running the socketcan ROS package, and wake up your
+Kvaser adapter by running the command:</p>
+<pre><code class="language-bash">sudo modprobe can  
+sudo modprobe can_raw  
+sudo ip link set can0 type can bitrate 5000000  
+sudo ip link set up can0
+</code></pre>
+<p>The bitrate can be changed if needed.</p>
+<p><img src="./media/media/UGMH5VBDV963V3NJJ1OGS1P65C.png" alt="" /></p>
+<p>In order to use <code>ros2_socketcan</code> ROS package, we cannot preinstall
+Leaf driver which vendored by Kvaser. Type <code>lsmod \| grep leaf</code> to
+verify the installation of the Leaf driver, if you see the below
+output message, then the system has installed Leaf driver.</p>
+<p><img src="./media/media/K20A1LFOI930RE2QOR0BFF71QS.png" alt="" /></p>
+<p>Secondly, use the Kvaser driver and corresponding APIs to
+communicate with the CAN bus network. Visit this
+ <a href="https://www.kvaser.com/canlib-webhelp/section_install_windows.html">link</a>
+if you're using Windows. However, visit this
+<a href="https://www.kvaser.com/canlib-webhelp/section_install_linux.html">link</a>
+if you're running Linux. Next, choose the proper SDK and Kvaser
+driver. After that, install the corresponding CANlib to control the
+installed CAN driver. Take python as an example, run <code>pip install canlib</code> to install python wrapper for Kvaser CANlib. After
+installation, you can run below sample python script to verify all
+installation are working. If CANlib and driver working, your Kvaser
+adapter information should be printed out.</p>
+<p><img src="./media/media/CNE8AAIB5L7NV6DPIBPKV4D7IO.png" alt="" /></p>
+<p>Note that you have to plugin your Kvaser adapter before running the
+python script.</p>
+<p>Every vehicle has its own specific CAN bus communication
+protocol. Thus, in order to use CAN bus communication to operate the
+vehicle, you must have the appropriate CAN message map in order to
+send the proper CAN bus control command to the CAN bus network. The
+PID controller assists in achieving smooth throttle and brake control,
+which is necessary to replicate human driving behavior. If you are
+using python for development the control logic, you can install
+simple-pid package using <code>pip install simple-pid</code> command to use the
+PID controller. To leverage PID controller, your vehicle needs to be
+able to retrieve the vehicle's current state, e.g., current speed of
+the vehicle, current acceleration of vehicle, current steering angle
+of vehicle, etc. You can set your setpoint(SP) and calculate the next
+step value with the current status of vehicle. After a while, the
+vehicle status will approach to the SP smoothly. Note that PID
+controllers need to be tuned for individual type of vehicle.</p>
+<p>TODO(ykming)</p>
+<p>SocketCAN, kvaser, PID controller</p>
+<h2 id="example-f1eigth-esc-controller"><a class="header" href="#example-f1eigth-esc-controller">Example: F1EIGTH ESC Controller</a></h2>
+<p>A script is provided by the manufacturer for controlling F1EIGTH car
+using a terminal interface. It utilized Adafruit's PCA9685 library to
+manage the steering servo and the Electronic Speed Controller
+(ESC). The user can control acceleration, braking, and steering via
+keyboard inputs. The code also includes an interface for displaying
+speed and steering angle updates and features for initiating and
+terminating the program.</p>
+<p>The code primarily revolves around the concept of Pulse Width
+Modulation (PWM), which is crucial for controlling the speed of motors
+and the position of servos in remote-controlled cars. The Adafruit
+PCA9685 library used in the script allows for precise control over PWM
+signals.  This is essential for adjusting the speed of the car's motor
+(through the ESC) and the angles of the steering servo. The
+<code>pwm.set_pwm_freq()</code> function sets the frequency of the PWM signal,
+and <code>pwm.set_pwn()</code> is used to specify the channel, on-time, and
+off-time of the PWM signal, directly influencing motor speed and servo
+position. This integration of software and hardware illustrates the
+advanced control capabilities provided for remote-controlled vehicles.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="vehicle-configuration"><a class="header" href="#vehicle-configuration">Vehicle Configuration</a></h1>
+<p>(Recommendation : Understand URDF and ROS2 roughly before next step)</p>
+<p>There are two part to describe vehicle, one is car’s parameters(fig) and
+another one is relative position of the sensor regrading to car.</p>
+<p><img src="./media/media/VLVQAPSVLD2PPB3KBD4G28EEEG.png" alt="" /></p>
+<p><code>sample_vehicle_description</code> contains the file related to parameters
+of car</p>
+<ol>
+<li>config : parameter of car</li>
+<li>mesh : appearance of car (could be ignored)</li>
+<li>urdf : size of car</li>
+</ol>
+<p>There are three  folders related to sensors.</p>
+<ul>
+<li><code>sample_sensor_kit_launch</code> for launching sensors
+<ul>
+<li>launch: used for launch sensors' drivers. If you use lidar, you need
+to write your point cloud frames into
+<code>pointcloud_preprocessor.launch.py</code></li>
+</ul>
+</li>
+<li><code>sample_sensor_kit_description</code>
+<ul>
+<li><code>xacro</code>: used for describing relative position of sensor_kit_base_link</li>
+<li><code>sensor_kit.xacro</code>: used for sensors’ position</li>
+</ul>
+</li>
+<li><code>sample_individual_params</code>
+<ul>
+<li><code>config/default</code>: used for sensors’ direction</li>
+</ul>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="map--localization"><a class="header" href="#map--localization">Map &amp; Localization</a></h1>
+<p>TODO</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                        
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                            </nav>
+
+        </div>
+
+        
+        
+        
+                <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+        
+                <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+                        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+                
+    </body>
+</html>

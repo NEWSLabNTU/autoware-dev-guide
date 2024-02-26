@@ -14,21 +14,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
-                <link rel="icon" href="favicon.svg">
-                        <link rel="shortcut icon" href="favicon.png">
-                <link rel="stylesheet" href="css/variables.css">
-        <link rel="stylesheet" href="css/general.css">
-        <link rel="stylesheet" href="css/chrome.css">
-                <link rel="stylesheet" href="css/print.css" media="print">
+                <link rel="icon" href="../favicon.svg">
+                        <link rel="shortcut icon" href="../favicon.png">
+                <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+                <link rel="stylesheet" href="../css/print.css" media="print">
         
         <!-- Fonts -->
-        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-                <link rel="stylesheet" href="fonts/fonts.css">
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+                <link rel="stylesheet" href="../fonts/fonts.css">
         
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="highlight.css">
-        <link rel="stylesheet" href="tomorrow-night.css">
-        <link rel="stylesheet" href="ayu-highlight.css">
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
         
@@ -36,7 +36,7 @@
     <body>
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
-            var path_to_root = "";
+            var path_to_root = "../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
@@ -82,7 +82,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="index.html">Introduction</a></li><li class="chapter-item expanded "><a href="dev-env.html"><strong aria-hidden="true">1.</strong> Development Environment</a></li><li class="chapter-item expanded "><a href="build-autoware.html"><strong aria-hidden="true">2.</strong> Build Autoware</a></li><li class="chapter-item expanded "><a href="customization.html" class="active"><strong aria-hidden="true">3.</strong> Customization</a></li><li class="chapter-item expanded "><a href="sensors.html"><strong aria-hidden="true">4.</strong> Sensors</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="sensors/velodyne-vlp32.html"><strong aria-hidden="true">4.1.</strong> LiDAR: Velodyne VLP-32C</a></li><li class="chapter-item expanded "><a href="sensors/blickfield-cube1.html"><strong aria-hidden="true">4.2.</strong> LiDAR: Blickfield Cube1</a></li><li class="chapter-item expanded "><a href="sensors/zed-x-mini.html"><strong aria-hidden="true">4.3.</strong> Camera: ZED X Mini</a></li></ol></li><li class="chapter-item expanded "><a href="perception.html"><strong aria-hidden="true">5.</strong> Perception</a></li><li class="chapter-item expanded "><a href="control.html"><strong aria-hidden="true">6.</strong> Control</a></li><li class="chapter-item expanded "><a href="vehicle-config.html"><strong aria-hidden="true">7.</strong> Vehicle Configuration</a></li><li class="chapter-item expanded "><a href="map-and-localization.html"><strong aria-hidden="true">8.</strong> Map &amp; Localization</a></li></ol>            </div>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">Introduction</a></li><li class="chapter-item expanded "><a href="../dev-env.html"><strong aria-hidden="true">1.</strong> Development Environment</a></li><li class="chapter-item expanded "><a href="../start-autoware.html"><strong aria-hidden="true">2.</strong> Start an Autoware Project</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../start-autoware/start-autoware.html"><strong aria-hidden="true">2.1.</strong> Start an Autoware Project</a></li><li class="chapter-item expanded "><a href="../start-autoware/customization.html" class="active"><strong aria-hidden="true">2.2.</strong> Customization</a></li><li class="chapter-item expanded "><a href="../start-autoware/build.html"><strong aria-hidden="true">2.3.</strong> Build the Autoware Project</a></li></ol></li><li class="chapter-item expanded "><a href="../sensors.html"><strong aria-hidden="true">3.</strong> Sensors</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../sensors/velodyne-vlp32.html"><strong aria-hidden="true">3.1.</strong> LiDAR: Velodyne VLP-32C</a></li><li class="chapter-item expanded "><a href="../sensors/blickfield-cube1.html"><strong aria-hidden="true">3.2.</strong> LiDAR: Blickfield Cube1</a></li><li class="chapter-item expanded "><a href="../sensors/zed-x-mini.html"><strong aria-hidden="true">3.3.</strong> Camera: ZED X Mini</a></li></ol></li><li class="chapter-item expanded "><a href="../perception.html"><strong aria-hidden="true">4.</strong> Perception</a></li><li class="chapter-item expanded "><a href="../control.html"><strong aria-hidden="true">5.</strong> Control</a></li><li class="chapter-item expanded "><a href="../vehicle-config.html"><strong aria-hidden="true">6.</strong> Vehicle Configuration</a></li><li class="chapter-item expanded "><a href="../map-and-localization.html"><strong aria-hidden="true">7.</strong> Map &amp; Localization</a></li></ol>            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
@@ -114,7 +114,7 @@
                     <h1 class="menu-title">Autoware Developer Guide fron NEWSLAB, NTU</h1>
 
                     <div class="right-buttons">
-                                                <a href="print.html" title="Print this book" aria-label="Print this book">
+                                                <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
                                                                         
@@ -144,27 +144,83 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="customization"><a class="header" href="#customization">Customization</a></h1>
-<p>The customization process starts by a new repository along side
-Autoware. We did not modify the Autoware source repo because it creates
-hard forks. Instead, the project-specific packages, launch files and
-configuration files are placed in the new repo. We will play the
-<strong>source combo</strong> trick to append our packages to existing compiled
-Autoware.</p>
-<h2 id="the-source-combo-trick"><a class="header" href="#the-source-combo-trick">The Source Combo Trick</a></h2>
-<h2 id="project-layout--version-control"><a class="header" href="#project-layout--version-control">Project Layout &amp; Version Control</a></h2>
-<p>TODO(Jerry)</p>
-<p><img src="./media/media/AV7O6G2M7H3F52ALL1I19C65B8.png" alt="" /></p>
-<p><img src="./media/media/43KFTV7VD124T0GBQTOKSMGFVO.png" alt="" /></p>
+<p>TODO: intro</p>
+<h2 id="create-a-fork-for-an-autoware-package"><a class="header" href="#create-a-fork-for-an-autoware-package">Create a Fork for an Autoware Package</a></h2>
+<p>To deploy Autoware on our favorite vehicle, we'd change the sensor
+parameters in the existing package to fit our needs. Here we're going
+to modify the <code>individual_params</code> package, which is located in this
+place in our repo.</p>
+<pre><code>./src/param/autoware_individual_params/individual_params
+</code></pre>
+<p>We not only tweak parameters. We want to make it simple to deploy
+these changes on more vehicles. A good practice is to start our
+<code>individual_params</code> fork and record changes in our fork.</p>
+<p>First, locate the original remote repo for <code>individual_params</code>.</p>
+<pre><code class="language-bash">cd ./src/param/autoware_individual_params/individual_params
+git remote show origin -n
+</code></pre>
+<p>and it shows</p>
+<pre><code>* remote origin
+  Fetch URL: https://github.com/autowarefoundation/autoware_individual_params.git
+  Push  URL: https://github.com/autowarefoundation/autoware_individual_params.git
+  HEAD branch: (not queried)
+  Remote branch: (status not queried)
+    main
+  Local ref configured for 'git push' (status not queried):
+    (matching) pushes to (matching)
+</code></pre>
+<p>We can find the &quot;Fetch/Push URL&quot;. Visit the URL in your favorite
+browser. Let's fork the repo to our lab and the new fork
+<code>demo_individual_params</code>.</p>
+<p><img src="../media/fork_individual_params.png" alt="" />
+<img src="../media/name_demo_individual_params.png" alt="" /></p>
+<p>After the forking is complete, remember the URL for our repo.</p>
+<p><img src="../media/copy_demo_individual_params_url.png" alt="" /></p>
+<p>Come back to our my-project repository. The <code>individual_params</code>
+submodule currently points to the original version of
+<code>individual_params</code>. Let edit <code>.gitmodules</code> and change the URL to our
+fork repo.</p>
+<pre><code class="language-diff">[submodule &quot;src/param/autoware_individual_params&quot;]
+	path = src/param/autoware_individual_params
+- 	url = https://github.com/autowarefoundation/autoware_individual_params.git
++ 	url = git@github.com:NEWSLabNTU/demo_individual_params.git
+</code></pre>
+<p>Then, synchronize the remote URLs on affected submodules.</p>
+<pre><code class="language-bash">git submodule sync --recursive
+</code></pre>
+<p>Finally, commit our changes.</p>
+<pre><code class="language-bash">git add .gitmodules
+git commit -m 'Change individual_param package to NEWSLAB fork'
+git push
+</code></pre>
+<h2 id="track-changes-using-git-submodule"><a class="header" href="#track-changes-using-git-submodule">Track Changes Using Git Submodule</a></h2>
+<p>TODO</p>
+<pre><code>my-project
+├── Makefile
+├── src
+│   ├── autoware
+│   │   ├── core
+│   │   ├── launcher
+│   │   ├── param
+│   │   ├── sensor_component
+│   │   ├── sensor_kit
+│   │   ├── src
+│   │   ├── universe
+│   │   └── vehicle
+│   ├── my_sensor
+│   ├── my_motor
+│   └── my_params
+</code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                                                    <a rel="prev" href="build-autoware.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                                    <a rel="prev" href="../start-autoware/start-autoware.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
-                                                    <a rel="next" href="sensors.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                                    <a rel="next" href="../start-autoware/build.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -174,11 +230,11 @@ Autoware.</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                                    <a rel="prev" href="build-autoware.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                    <a rel="prev" href="../start-autoware/start-autoware.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
-                                    <a rel="next" href="sensors.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                    <a rel="next" href="../start-autoware/build.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                             </nav>
@@ -193,13 +249,13 @@ Autoware.</p>
         </script>
         
         
-                <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+                <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
         
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
 
         <!-- Custom JS scripts -->
         

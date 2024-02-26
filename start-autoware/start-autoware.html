@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>LiDAR: Blickfield Cube1 - Autoware Developer Guide fron NEWSLAB, NTU</title>
+        <title>Start an Autoware Project - Autoware Developer Guide fron NEWSLAB, NTU</title>
                 
 
         <!-- Custom HTML head -->
@@ -82,7 +82,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">Introduction</a></li><li class="chapter-item expanded "><a href="../dev-env.html"><strong aria-hidden="true">1.</strong> Development Environment</a></li><li class="chapter-item expanded "><a href="../start-autoware.html"><strong aria-hidden="true">2.</strong> Start an Autoware Project</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../start-autoware/start-autoware.html"><strong aria-hidden="true">2.1.</strong> Start an Autoware Project</a></li><li class="chapter-item expanded "><a href="../start-autoware/customization.html"><strong aria-hidden="true">2.2.</strong> Customization</a></li><li class="chapter-item expanded "><a href="../start-autoware/build.html"><strong aria-hidden="true">2.3.</strong> Build the Autoware Project</a></li></ol></li><li class="chapter-item expanded "><a href="../sensors.html"><strong aria-hidden="true">3.</strong> Sensors</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../sensors/velodyne-vlp32.html"><strong aria-hidden="true">3.1.</strong> LiDAR: Velodyne VLP-32C</a></li><li class="chapter-item expanded "><a href="../sensors/blickfield-cube1.html" class="active"><strong aria-hidden="true">3.2.</strong> LiDAR: Blickfield Cube1</a></li><li class="chapter-item expanded "><a href="../sensors/zed-x-mini.html"><strong aria-hidden="true">3.3.</strong> Camera: ZED X Mini</a></li></ol></li><li class="chapter-item expanded "><a href="../perception.html"><strong aria-hidden="true">4.</strong> Perception</a></li><li class="chapter-item expanded "><a href="../control.html"><strong aria-hidden="true">5.</strong> Control</a></li><li class="chapter-item expanded "><a href="../vehicle-config.html"><strong aria-hidden="true">6.</strong> Vehicle Configuration</a></li><li class="chapter-item expanded "><a href="../map-and-localization.html"><strong aria-hidden="true">7.</strong> Map &amp; Localization</a></li></ol>            </div>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">Introduction</a></li><li class="chapter-item expanded "><a href="../dev-env.html"><strong aria-hidden="true">1.</strong> Development Environment</a></li><li class="chapter-item expanded "><a href="../start-autoware.html"><strong aria-hidden="true">2.</strong> Start an Autoware Project</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../start-autoware/start-autoware.html" class="active"><strong aria-hidden="true">2.1.</strong> Start an Autoware Project</a></li><li class="chapter-item expanded "><a href="../start-autoware/customization.html"><strong aria-hidden="true">2.2.</strong> Customization</a></li><li class="chapter-item expanded "><a href="../start-autoware/build.html"><strong aria-hidden="true">2.3.</strong> Build the Autoware Project</a></li></ol></li><li class="chapter-item expanded "><a href="../sensors.html"><strong aria-hidden="true">3.</strong> Sensors</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../sensors/velodyne-vlp32.html"><strong aria-hidden="true">3.1.</strong> LiDAR: Velodyne VLP-32C</a></li><li class="chapter-item expanded "><a href="../sensors/blickfield-cube1.html"><strong aria-hidden="true">3.2.</strong> LiDAR: Blickfield Cube1</a></li><li class="chapter-item expanded "><a href="../sensors/zed-x-mini.html"><strong aria-hidden="true">3.3.</strong> Camera: ZED X Mini</a></li></ol></li><li class="chapter-item expanded "><a href="../perception.html"><strong aria-hidden="true">4.</strong> Perception</a></li><li class="chapter-item expanded "><a href="../control.html"><strong aria-hidden="true">5.</strong> Control</a></li><li class="chapter-item expanded "><a href="../vehicle-config.html"><strong aria-hidden="true">6.</strong> Vehicle Configuration</a></li><li class="chapter-item expanded "><a href="../map-and-localization.html"><strong aria-hidden="true">7.</strong> Map &amp; Localization</a></li></ol>            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
@@ -143,151 +143,54 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="blickfield-cube1"><a class="header" href="#blickfield-cube1">Blickfield Cube1</a></h1>
-<p>TODO(許)</p>
-<p>The BLS driver.</p>
-<ul>
-<li>Connect with Blickfeld Cube1.
-<ul>
-<li>Add a wired interface with the IP address 192.168.26.1/24
-<img src="../media/media/1VPI4F2KB14C1D751DJJIDH04K.png" alt="" /></li>
-</ul>
-</li>
-<li>The displayed technology is only supported by the Chrome browser. Use
-Chrome to check if the webpage correctly displays the point cloud.
-<img src="../media/media/6G7F8NBRKL189C8E704QFUS71C.png" alt="" /></li>
-<li>Install blickfeld-scanner-library (BSL). Please check the official
-<a href="https://docs.blickfeld.com/cube/latest/external/blickfeld-scanner-lib/install.html">installation
-document</a>.</li>
-</ul>
-<pre><code class="language-bash"># download
-sudo apt install libprotobuf-dev libprotobuf23 protobuf-compiler
-git clone https://github.com/Blickfeld/blickfeld-scanner-lib.git
-cd blickfeld-scanner-lib
-git checkout v2.20.6
-git submodule update --init --recursive
-
-# build
-cmake -B build -S .
-cmake --build build --parallel
-sudo cmake --install build
+                        <h1 id="start-an-autoware-project"><a class="header" href="#start-an-autoware-project">Start an Autoware Project</a></h1>
+<h2 id="start-a-git-repository"><a class="header" href="#start-a-git-repository">Start a Git Repository</a></h2>
+<p>Let's create a new Git repository to start our project.</p>
+<pre><code class="language-bash">mkdir my-project
+cd my-project
+git init
 </code></pre>
-<ul>
-<li>Build blickfeld cube 1 ROS2 package</li>
-</ul>
-<p><a href="https://docs.blickfeld.com/cube/latest/external/ros/driver-v2/README.html">Blickfeld ROS2 package official
-document</a></p>
-<ul>
-<li>
-<p>Download Cube 1 ROS 2 Driver from
-<a href="https://www.blickfeld.com/resources/">https://www.blickfeld.com/resources/</a></p>
-</li>
-<li>
-<p>Install dependencies</p>
-</li>
-</ul>
-<pre><code class="language-bash">sudo apt install ros-${ROS_DISTRO}-diagnostic-updater
-sudo apt install ros-${ROS_DISTRO}-diagnostic-msgs
+<p>Download and copy the <a href="../media/Makefile">Makefile</a> to the repository. It
+provides the these commands</p>
+<pre><code class="language-bash">make prepare  # Install dependencies
+make build    # Build the project
+make clean    # Clean up compilation output
 </code></pre>
-<ul>
-<li>Source ROS2 and create colcon workspace</li>
-</ul>
-<pre><code class="language-bash">source /opt/ros/${ROS_DISTRO}/setup.bash
-mkdir -p ~/blickfeld/src
+<p>Let's import Autoware packages to the <code>src/autoware</code> directory. It
+downloads the
+<a href="https://raw.githubusercontent.com/autowarefoundation/autoware/main/autoware.repos">autoware.repos</a>
+file that contains the list of Autoware packages. The the command
+<code>vcs2git</code> imports these packages as Git submodules. Git submodule is a
+nice feature to record the commit hashes and remote repository
+links. The merit of this step is to help us pin down package versions.</p>
+<pre><code class="language-bash">wget https://raw.githubusercontent.com/autowarefoundation/autoware/main/autoware.repos
+vcs2git autoware.repos src
+git commit -m 'Import Autoware packages as submodules'
 </code></pre>
-<ul>
-<li>Move the <code>ros2_blickfeld_driver</code> package into <code>blickfeld/src</code></li>
-<li>Modify <code>blickfeld/src/ros2_blickfeld_driver_src-v1.5.5/CMakeLists.txt</code>
-<ul>
-<li>Change C++ standard from 14 to 17</li>
-</ul>
-</li>
-</ul>
-<pre><code class="language-diff">- set(CMAKE_CXX_STANDARD 14)
-+ set(CMAKE_CXX_STANDARD 17)
+<p>At this point, the project layout looks like this.</p>
+<pre><code>my-project
+├── Makefile
+└── src
+    └── autoware
+        ├── core
+        ├── launcher
+        ├── param
+        ├── sensor_component
+        ├── sensor_kit
+        ├── src
+        ├── universe
+        └── vehicle
 </code></pre>
-<ul>
-<li>Update Blickfeld scanner package version from 2.18.2 to 2.20.6</li>
-</ul>
-<pre><code class="language-diff">- find_package(blickfeld-scanner 2.18.2 REQUIRED full)
-+ find_package(blickfeld-scanner 2.20.6 REQUIRED full)
-</code></pre>
-<ul>
-<li>Add include directories for ROS Humble</li>
-</ul>
-<pre><code class="language-diff">+ include_directories(/opt/ros/humble/include/tf2_geometry_msgs)
-+ include_directories(/opt/ros/humble/include/tf2)
-+ include_directories(/opt/ros/humble/include/tf2_ros)
-+ include_directories(/opt/ros/humble/include/cv_bridge)
-+ include_directories(/opt/ros/humble/include/rclcpp)
-+ include_directories(/opt/ros/humble/include/rcl)
-+ include_directories(/opt/ros/humble/include/rcl_yaml_param_parser)
-+ include_directories(/opt/ros/humble/include/rcpputils)
-+ include_directories(/opt/ros/humble/include/tracetools)
-+ include_directories(/opt/ros/humble/include/rcl_interfaces)
-+ include_directories(/opt/ros/humble/include/libstatistics_collector)
-+ include_directories(/opt/ros/humble/include/statistics_msgs)
-+ include_directories(/opt/ros/humble/include/diagnostic_msgs)
-+ include_directories(/opt/ros/humble/include/rclcpp_components)
-+ include_directories(/opt/ros/humble/include/class_loader)|
-</code></pre>
-<ul>
-<li>
-<p>Modify
-<code>blickfeld/src/ros2_blickfeld_driver_src-v1.5.5/src/blickfeld_driver.cpp</code></p>
-<ul>
-<li>Add <code>.c_str()</code> to convert the string to a C-style string</li>
-</ul>
-</li>
-</ul>
-<pre><code class="language-bash">- log_message.second.str());
-+ log_message.second.str().c_str());
-</code></pre>
-<ul>
-<li>Build your workspace</li>
-</ul>
-<pre><code class="language-bash">cd ~/blickfield/src
-colcon build --symlink-install --cmake-clean-first
-</code></pre>
-<ul>
-<li>Running the Blickfeld ROS2 node
-<ul>
-<li>Switching to desired DDS</li>
-</ul>
-</li>
-</ul>
-<pre><code class="language-bash">export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
-</code></pre>
-<ul>
-<li>Run the ROS2 node, change the blickfeld topic name to fit autoware
-pointcloud_preprocessor</li>
-</ul>
-<pre><code class="language-bash">ros2 run blickfeld_driver blickfeld_driver_node \
-    --ros-args -p host:=192.168.26.26 \
-    --remap __node:=bf_lidar \
-    --remap bf_lidar/point_cloud_out:=input_points_raw0
-</code></pre>
-<ul>
-<li>Visualize the published data
-<ul>
-<li>Launch rviz2, config Fixed Frame to <code>lidar</code> and Topic to
-<code>input_points_raw0</code></li>
-</ul>
-</li>
-</ul>
-<pre><code class="language-bash">rviz2
-</code></pre>
-<p><img src="../media/media/H1UCP6MS0P1EB9FFFT2RQ08IJS.png" alt="" /></p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                                                    <a rel="prev" href="../sensors/velodyne-vlp32.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                                    <a rel="prev" href="../start-autoware.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
-                                                    <a rel="next" href="../sensors/zed-x-mini.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                                    <a rel="next" href="../start-autoware/customization.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -297,11 +200,11 @@ pointcloud_preprocessor</li>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                                    <a rel="prev" href="../sensors/velodyne-vlp32.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                    <a rel="prev" href="../start-autoware.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
-                                    <a rel="next" href="../sensors/zed-x-mini.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                    <a rel="next" href="../start-autoware/customization.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                             </nav>

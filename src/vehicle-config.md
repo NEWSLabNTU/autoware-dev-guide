@@ -25,3 +25,5 @@ There are three  folders related to sensors.
   - `sensor_kit.xacro`: used for sensors’ position
 - `sample_individual_params`
   - `config/default`: used for sensors’ direction
+
+For tutorials of modifying these files, please refer to [Autoware Documentation - Creating vehicle and sensor models](https://autowarefoundation.github.io/autoware-documentation/main/how-to-guides/integrating-autoware/creating-vehicle-and-sensor-model/).

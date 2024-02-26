@@ -1,4 +1,4 @@
-# Build Autoware
+# Compile the Autoware Project
 
 ## Source Code and Dependency Preparation
 
@@ -10,7 +10,6 @@ Switch to specific branch depending on your **OS** and **ROS2**
 version.
 
 ![](./media/media/T8NG073FC93J12RFQS565473CG.png)
-
 
 Clone the Autoware Repo.
 
@@ -24,14 +23,16 @@ official Ansible script or (2) install the them manually.
 
 The Ansible script is only recommended for freshly installed Ubuntu
 systems. It will interfere with existing CUDA. If you have custom CUDA
-installation, such as JetPack, it's recommended to go on the manual way.
+installation, such as JetPack, it's recommended to go on the manual
+way.
 
-Install dependent packages. You may skip “Install ROS 2“ if you already
-have ROS 2 installed. The “Install Nvidia CUDA/cuDNN/TensorRT“ should be
-skipped if they are already configured on the system.
+Install dependent packages. You may skip “Install ROS 2“ if you
+already have ROS 2 installed. The “Install Nvidia CUDA/cuDNN/TensorRT“
+should be skipped if they are already configured on the system.
 
 ![](./media/media/449J2N847D0G5E18Q4VIRQK5US.png)
 ![](./media/media/PTQM7GKMOL63J03D83GHCRA0C0.png)
+
 
 ## Compile the Autoware Project
 

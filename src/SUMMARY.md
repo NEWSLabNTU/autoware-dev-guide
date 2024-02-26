@@ -2,8 +2,10 @@
 
 [Introduction](README.md)
 - [Development Environment](dev-env.md)
-- [Build Autoware](build-autoware.md)
-- [Customization](customization.md)
+- [Start an Autoware Project](start-autoware.md)
+  - [Start an Autoware Project](start-autoware/start-autoware.md)
+  - [Customization](start-autoware/customization.md)
+  - [Build the Autoware Project](start-autoware/build.md)
 - [Sensors](sensors.md)
   - [LiDAR: Velodyne VLP-32C](sensors/velodyne-vlp32.md)
   - [LiDAR: Blickfield Cube1](sensors/blickfield-cube1.md)

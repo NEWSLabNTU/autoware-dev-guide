@@ -11,11 +11,11 @@ version.
 
 ![](./media/media/T8NG073FC93J12RFQS565473CG.png)
 
-Clone the Autoware Repo.
+Clone your Autoware Repo.
 
 ```bash
-git clone https://github.com/autowarefoundation/autoware.git
-cd autoware
+git clone https://github.com/NEWSLabNTU/2023-nycu-project.git
+cd 2023-nycu-project
 ```
 
 There are two ways to install dependent libraries. Either (1) run the
@@ -39,17 +39,15 @@ should be skipped if they are already configured on the system.
 The Autoware repo layout itself follows ROS convention. All packages
 reside in the `src` directory.
 
-### The vcs-rosdep-colcon Chain
+### The submodule-rosdep-colcon Chain
 
-The vcs → rosdep → colcon chain is a common practice to build most ROS
-projects, including Autoware.
+The vcs → rosdep → colcon chain is a common practice to build most ROS projects, including Autoware.
+However, we prefer using submodule instead of vcs.
 
-- Run `vcs` to download dependent repositories into the `src` folder.
+- Run `git submodule` to init and pull the submodules
 
   ```bash
-  cd autoware
-  mkdir src
-  vcs import src < autoware.repos
+  git submodule update --init --recursive
   ```
 
 - Run `rosdep` to install system dependencies. It scans through

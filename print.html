@@ -435,9 +435,9 @@ to build Autoware source code.</p>
 <p>Switch to specific branch depending on your <strong>OS</strong> and <strong>ROS2</strong>
 version.</p>
 <p><img src="start-autoware/./media/media/T8NG073FC93J12RFQS565473CG.png" alt="" /></p>
-<p>Clone the Autoware Repo.</p>
-<pre><code class="language-bash">git clone https://github.com/autowarefoundation/autoware.git
-cd autoware
+<p>Clone your Autoware Repo.</p>
+<pre><code class="language-bash">git clone https://github.com/NEWSLabNTU/2023-nycu-project.git
+cd 2023-nycu-project
 </code></pre>
 <p>There are two ways to install dependent libraries. Either (1) run the
 official Ansible script or (2) install the them manually.</p>
@@ -453,15 +453,13 @@ should be skipped if they are already configured on the system.</p>
 <h2 id="compile-the-autoware-project-1"><a class="header" href="#compile-the-autoware-project-1">Compile the Autoware Project</a></h2>
 <p>The Autoware repo layout itself follows ROS convention. All packages
 reside in the <code>src</code> directory.</p>
-<h3 id="the-vcs-rosdep-colcon-chain"><a class="header" href="#the-vcs-rosdep-colcon-chain">The vcs-rosdep-colcon Chain</a></h3>
-<p>The vcs → rosdep → colcon chain is a common practice to build most ROS
-projects, including Autoware.</p>
+<h3 id="the-submodule-rosdep-colcon-chain"><a class="header" href="#the-submodule-rosdep-colcon-chain">The submodule-rosdep-colcon Chain</a></h3>
+<p>The vcs → rosdep → colcon chain is a common practice to build most ROS projects, including Autoware.
+However, we prefer using submodule instead of vcs.</p>
 <ul>
 <li>
-<p>Run <code>vcs</code> to download dependent repositories into the <code>src</code> folder.</p>
-<pre><code class="language-bash">cd autoware
-mkdir src
-vcs import src &lt; autoware.repos
+<p>Run <code>git submodule</code> to init and pull the submodules</p>
+<pre><code class="language-bash">git submodule update --init --recursive
 </code></pre>
 </li>
 <li>
@@ -1042,6 +1040,7 @@ to write your point cloud frames into
 </ul>
 </li>
 </ul>
+<p>For tutorials of modifying these files, please refer to <a href="https://autowarefoundation.github.io/autoware-documentation/main/how-to-guides/integrating-autoware/creating-vehicle-and-sensor-model/">Autoware Documentation - Creating vehicle and sensor models</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="map--localization"><a class="header" href="#map--localization">Map &amp; Localization</a></h1>
 <p>TODO</p>
 
